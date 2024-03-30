@@ -1,0 +1,11 @@
+.venv
+venv
+.env
+env
+dist
+build
+*.egg-info
+.ruff_cache
+__pycache__
+chroma_db
+issue_comments.csv

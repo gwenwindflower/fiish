@@ -1,0 +1,7 @@
+version: "3"
+
+tasks:
+  run:
+    aliases: [r]
+    cmds:
+      - jercode "Should the external tables package be part of dbt-core?"
