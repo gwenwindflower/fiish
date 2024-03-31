@@ -1,9 +1,7 @@
 import os
 from operator import itemgetter
 
-
 from langchain_anthropic import ChatAnthropic
-from langchain_groq import ChatGroq
 from langchain_community.vectorstores import Chroma
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
@@ -11,6 +9,7 @@ from langchain_core.runnables import (
     RunnableParallel,
     RunnablePassthrough,
 )
+from langchain_groq import ChatGroq
 from langchain_openai import OpenAIEmbeddings
 
 SYSTEM: str = """
@@ -36,16 +35,19 @@ def get_retriever():
     return db.as_retriever(search_kwargs={"k": 6})
 
 
-def answer_query(query: str, temperature: float, fast: bool = False):
+def answer_query(
+    query: str, temperature: float, fast: bool = False, trace: bool = False
+):
     # Enable LangSmith for introspecting the chains
-    os.environ["LANGCHAIN_TRACING_V2"] = "true"
+    if trace:
+        os.environ["LANGCHAIN_TRACING_V2"] = "true"
 
     # LLM
     model_claude: ChatAnthropic = ChatAnthropic(
         model_name="claude-3-opus-20240229", temperature=temperature
     )
     # If you want to Go Fast you can use Groq instead of Claude, just change the model in the pipeline
-    model_groq: ChatGroq = ChatGroq(model_name="gemma-7b-it", temperature=temperature)
+    model_groq: ChatGroq = ChatGroq(model="gemma-7b-it", temperature=temperature)
 
     if fast:
         model = model_groq

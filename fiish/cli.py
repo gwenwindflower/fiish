@@ -28,11 +28,11 @@ def bait(
     Head to the bait shop: collect issue comments from a GitHub repository for the vector store.
     """
     embedding_function = OpenAIEmbeddings()
-    users: list[str] | None = users.split(",") if users else None
+    userList: list[str] | None = users.split(",") if users else None
     spinner = Halo(text="🚌 Off to the bait shop (takes awhile)...", spinner="moon")
 
     spinner.start()
-    comments = get_issue_comments(repo_owner, repo_name, users)
+    comments = get_issue_comments(repo_owner, repo_name, userList)
     issue_comments_data_path: Path = write_csv(comments)
     loader: CSVLoader = CSVLoader(
         file_path=issue_comments_data_path,
@@ -60,6 +60,7 @@ def go(
     query: str,
     temp: Annotated[float, typer.Option()] = 0.5,
     fast: Annotated[bool, typer.Option()] = False,
+    trace: Annotated[bool, typer.Option()] = False,
 ):
     """
     Go fishing: answer a query about existing issues in an open source GitHub repository.
@@ -67,9 +68,13 @@ def go(
     """
     spinner = Halo(text="🎣 Gone fishin'...", spinner="moon")
     spinner.start()
-    answer: dict[str, str] = answer_query(query, temp, fast)
+
+    answer: dict[str, str] = answer_query(query, temp, fast, trace)
+
     summary_panel, references_panel = format_response(answer)
+
     spinner.stop_and_persist(symbol="🐟", text="Caught one!")
+
     console: Console = Console()
     console.print(summary_panel)
     console.print(references_panel)

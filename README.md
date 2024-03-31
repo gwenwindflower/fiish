@@ -13,7 +13,7 @@ It's built with several wonderful open source tools: [Rich](https://rich.readthe
 
 ## Installation
 
-Installation can be scoped to a virtual environment (if, for instance, you want to install `fiish` alongside the project it's pointed at), or perhaps better globally as a general CLI tool. `pip` or `pipx` will be the recommended installation methods once I get adequate testing in place. For now you'll need to clone the repo and install it locally. It's set up like a standard python package: activate a virtual environment, install dependencies, then `pip install .` from the root of the repo. Then, off you go!
+Installation can be scoped to a virtual environment (if, for instance, you want to install `fiish` alongside the project it's pointed at), or perhaps better globally as a general CLI tool. `pip` or `pipx`, respectively, would be the recommended installation methods once I get adequate testing in place. For now you'll need to clone the repo and install it locally. It's set up like a standard python package: activate a virtual environment, install dependencies, then `pip install .` from the root of the repo. Then, off you go!
 
 Soon:
 
