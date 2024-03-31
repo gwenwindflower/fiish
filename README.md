@@ -1,6 +1,6 @@
 # 🔍fish✨
 
-## A magical way to **fi**nd **ish**(ues)
+## A magical way to (fi)nd (ish)ues in open source GitHub repos
 
 `fish` is a CLI tool (I'm working on an API targeting Slack bots as an interface ultimately) built to help you find existing issues in open source GitHub repositories. It uses the GitHub API to scrape all the individual Issue Comments that comprise an Issue, then loads them into the Chroma vector store using OpenAI's embeddings API. Once the Issue Comments are vectorized, you can query the store for similar issues based on a query string. The results are summarized by either Anthropic Claude Opus (for maximum quality) or Groq running Gemma 7B (for maximum speed).
 
