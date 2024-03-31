@@ -115,8 +115,7 @@ def test_get_issue_comments_error_handling():
     # Mock the requests.get function to raise an exception
     with patch("requests.get") as mock_get:
         mock_get.side_effect = Exception("An error occurred")
-
-        # Call the function and assert that it raises an exception
         with pytest.raises(Exception) as excinfo:
-            get_issue_comments("owner", "repo")
+            comments = get_issue_comments("owner", "repo")
+            assert comments == []
         assert str(excinfo.value) == "An error occurred"
