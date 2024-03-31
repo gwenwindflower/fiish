@@ -3,10 +3,11 @@ langchain-anthropic
 langchain-community
 langchain-openai
 langchain-text-splitters
-sentence-transformers
 chromadb
 requests
 pre-commit
 setuptools
 pytest
 ruff
+fastapi[all]
+halo

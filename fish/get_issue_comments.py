@@ -17,6 +17,8 @@ def get_issue_comments():
     PARAMS = {
         "per_page": 100,  # Number of comments to retrieve per page
         "page": 1,  # Starting page number
+        "sort": "updated",
+        "direction": "desc",
     }
 
     # Request

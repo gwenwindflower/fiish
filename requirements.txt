@@ -46,6 +46,10 @@ click==8.1.7
     # via
     #   typer
     #   uvicorn
+colorama==0.4.6
+    # via
+    #   halo
+    #   log-symbols
 coloredlogs==15.0.1
     # via onnxruntime
 dataclasses-json==0.6.4
@@ -62,13 +66,15 @@ distro==1.9.0
     # via
     #   anthropic
     #   openai
+dnspython==2.6.1
+    # via email-validator
+email-validator==2.1.1
+    # via fastapi
 fastapi==0.110.0
     # via chromadb
 filelock==3.13.1
     # via
     #   huggingface-hub
-    #   torch
-    #   transformers
     #   virtualenv
 flatbuffers==24.3.7
     # via onnxruntime
@@ -77,9 +83,7 @@ frozenlist==1.4.1
     #   aiohttp
     #   aiosignal
 fsspec==2024.3.1
-    # via
-    #   huggingface-hub
-    #   torch
+    # via huggingface-hub
 google-auth==2.29.0
     # via kubernetes
 googleapis-common-protos==1.63.0
@@ -92,6 +96,7 @@ h11==0.14.0
     # via
     #   httpcore
     #   uvicorn
+halo==0.0.31
 httpcore==1.0.4
     # via httpx
 httptools==0.6.1
@@ -99,12 +104,10 @@ httptools==0.6.1
 httpx==0.27.0
     # via
     #   anthropic
+    #   fastapi
     #   openai
 huggingface-hub==0.21.4
-    # via
-    #   sentence-transformers
-    #   tokenizers
-    #   transformers
+    # via tokenizers
 humanfriendly==10.0
     # via coloredlogs
 identify==2.5.35
@@ -112,6 +115,7 @@ identify==2.5.35
 idna==3.6
     # via
     #   anyio
+    #   email-validator
     #   httpx
     #   requests
     #   yarl
@@ -121,10 +125,10 @@ importlib-resources==6.3.2
     # via chromadb
 iniconfig==2.0.0
     # via pytest
+itsdangerous==2.1.2
+    # via fastapi
 jinja2==3.1.3
-    # via torch
-joblib==1.3.2
-    # via scikit-learn
+    # via fastapi
 jsonpatch==1.33
     # via langchain-core
 jsonpointer==2.4
@@ -145,6 +149,8 @@ langsmith==0.1.28
     # via
     #   langchain-community
     #   langchain-core
+log-symbols==0.0.14
+    # via halo
 markupsafe==2.1.5
     # via jinja2
 marshmallow==3.21.1
@@ -161,8 +167,6 @@ multidict==6.0.5
     #   yarl
 mypy-extensions==1.0.0
     # via typing-inspect
-networkx==3.2.1
-    # via torch
 nodeenv==1.8.0
     # via pre-commit
 numpy==1.26.4
@@ -171,10 +175,6 @@ numpy==1.26.4
     #   chromadb
     #   langchain-community
     #   onnxruntime
-    #   scikit-learn
-    #   scipy
-    #   sentence-transformers
-    #   transformers
 oauthlib==3.2.2
     # via
     #   kubernetes
@@ -223,6 +223,7 @@ opentelemetry-util-http==0.44b0
 orjson==3.9.15
     # via
     #   chromadb
+    #   fastapi
     #   langsmith
 overrides==7.7.0
     # via chromadb
@@ -234,9 +235,6 @@ packaging==23.2
     #   marshmallow
     #   onnxruntime
     #   pytest
-    #   transformers
-pillow==10.2.0
-    # via sentence-transformers
 platformdirs==4.2.0
     # via virtualenv
 pluggy==1.4.0
@@ -265,8 +263,14 @@ pydantic==2.6.4
     #   langchain-core
     #   langsmith
     #   openai
+    #   pydantic-extra-types
+    #   pydantic-settings
 pydantic-core==2.16.3
     # via pydantic
+pydantic-extra-types==2.6.0
+    # via fastapi
+pydantic-settings==2.2.1
+    # via fastapi
 pypika==0.48.9
     # via chromadb
 pyproject-hooks==1.0.0
@@ -277,21 +281,23 @@ python-dateutil==2.9.0.post0
     #   kubernetes
     #   posthog
 python-dotenv==1.0.1
-    # via uvicorn
+    # via
+    #   pydantic-settings
+    #   uvicorn
+python-multipart==0.0.9
+    # via fastapi
 pyyaml==6.0.1
     # via
     #   chromadb
+    #   fastapi
     #   huggingface-hub
     #   kubernetes
     #   langchain-community
     #   langchain-core
     #   pre-commit
-    #   transformers
     #   uvicorn
 regex==2023.12.25
-    # via
-    #   tiktoken
-    #   transformers
+    # via tiktoken
 requests==2.31.0
     # via
     #   chromadb
@@ -303,27 +309,18 @@ requests==2.31.0
     #   posthog
     #   requests-oauthlib
     #   tiktoken
-    #   transformers
 requests-oauthlib==1.4.0
     # via kubernetes
 rsa==4.9
     # via google-auth
 ruff==0.3.3
-safetensors==0.4.2
-    # via transformers
-scikit-learn==1.4.1.post1
-    # via sentence-transformers
-scipy==1.12.0
-    # via
-    #   scikit-learn
-    #   sentence-transformers
-sentence-transformers==2.5.1
 setuptools==69.2.0
     # via
     #   nodeenv
     #   opentelemetry-instrumentation
 six==1.16.0
     # via
+    #   halo
     #   kubernetes
     #   posthog
     #   python-dateutil
@@ -333,39 +330,32 @@ sniffio==1.3.1
     #   anyio
     #   httpx
     #   openai
+spinners==0.0.24
+    # via halo
 sqlalchemy==2.0.28
     # via langchain-community
 starlette==0.36.3
     # via fastapi
 sympy==1.12
-    # via
-    #   onnxruntime
-    #   torch
+    # via onnxruntime
 tenacity==8.2.3
     # via
     #   chromadb
     #   langchain-community
     #   langchain-core
-threadpoolctl==3.4.0
-    # via scikit-learn
+termcolor==2.4.0
+    # via halo
 tiktoken==0.6.0
     # via langchain-openai
 tokenizers==0.15.2
     # via
     #   anthropic
     #   chromadb
-    #   transformers
-torch==2.2.1
-    # via sentence-transformers
 tqdm==4.66.2
     # via
     #   chromadb
     #   huggingface-hub
     #   openai
-    #   sentence-transformers
-    #   transformers
-transformers==4.39.0
-    # via sentence-transformers
 typer==0.9.0
     # via chromadb
 typing-extensions==4.10.0
@@ -379,17 +369,20 @@ typing-extensions==4.10.0
     #   pydantic
     #   pydantic-core
     #   sqlalchemy
-    #   torch
     #   typer
     #   typing-inspect
 typing-inspect==0.9.0
     # via dataclasses-json
+ujson==5.9.0
+    # via fastapi
 urllib3==2.2.1
     # via
     #   kubernetes
     #   requests
 uvicorn==0.29.0
-    # via chromadb
+    # via
+    #   chromadb
+    #   fastapi
 uvloop==0.19.0
     # via uvicorn
 virtualenv==20.25.1
