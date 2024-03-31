@@ -11,7 +11,7 @@ The results and the issues referenced (it will grab the 6 most relevant comments
 Installation can be scoped to a virtual environment (if, for instance, you want to install `fish` alongside the project it's pointed at), or perhaps better globally as a general CLI tool. `pip` or `pipx` are the recommended installation methods.
 
 ```bash
-`pipx` install fish # for global installation
+pipx install fish # for global installation
 ```
 
 ## Usage
@@ -22,11 +22,10 @@ Installation can be scoped to a virtual environment (if, for instance, you want 
 
 As far as I'm aware (and I could be wrong), when you run `bait` it will wipe out the previous vector store. So for now, it can only be pointed at one repo at a time. This _will_ change. The `bait` command takes two arguments: the organization/user and the repository name. Optionally, you can provide a list of user ids to limit the scrape to just those users. This is useful if you only want to scrape the comments of the core maintainers, for example.
 
-````bash
 ```bash
 fish bait dbt-labs dbt-core # scrape and vectorize all issue comments in dbt-labs/dbt-core
 fish bait dbt-labs dbt-core "<user id>,<user_id>,..." # this will limit the comments scraped to the list of user ids provided
-````
+```
 
 This command can take several minutes depending on the activity history of the repo.
 
