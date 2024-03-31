@@ -5,5 +5,5 @@ app: FastAPI = FastAPI()
 
 
 @app.get("/")
-async def query(query: str, temperature: float, fast: bool):
+async def query(query: str, temperature: float = 0.5, fast: bool = False):
     return answer_query(query, temperature, fast)
