@@ -1,7 +1,7 @@
 # 🔍fiish✨
 
 > [!NOTE]
-> This is a brand new project. It's like pre-pre-alpha. I'm still working on testing and error handling. It's not PyPI. It's very much a work in progress, at present only use it to hack around with if you're interested in RAG flows.
+> This is a brand new project. It's like pre-pre-alpha. I'm still working on testing and error handling. It's not on PyPI, and it's very much a work in progress, at present only use it to hack around with if you're interested in RAG flows.
 
 ## A magical way to (fi)nd (ish)ues in open source GitHub repos
 
