@@ -1,5 +1,8 @@
 # 🔍fiish✨
 
+> [!NOTE]
+> This is a brand new project. It's like pre-pre-alpha. I'm still working on testing and error handling. It's not PyPI. It's very much a work in progress, at present only use it to hack around with if you're interested in RAG flows.
+
 ## A magical way to (fi)nd (ish)ues in open source GitHub repos
 
 `fiish` is a CLI tool (I'm working on an API targeting Slackbots as an interface ultimately) built to help you find existing issues in open source GitHub repositories. It uses the GitHub API to scrape all the individual Issue Comments that comprise an Issue, then loads them into the Chroma vector store using OpenAI's embeddings API. Once the Issue Comments are vectorized, you can query the store for similar issues based on a query string. The results are summarized by either Anthropic Claude Opus (for maximum quality) or Groq running Gemma 7B (for maximum speed).
@@ -8,19 +11,30 @@ The results and the issues referenced (it will grab the 6 most relevant comments
 
 ## Installation
 
-Installation can be scoped to a virtual environment (if, for instance, you want to install `fish` alongside the project it's pointed at), or perhaps better globally as a general CLI tool. `pip` or `pipx` are the recommended installation methods.
+Installation can be scoped to a virtual environment (if, for instance, you want to install `fish` alongside the project it's pointed at), or perhaps better globally as a general CLI tool. `pip` or `pipx` will be the recommended installation methods once I get adequate testing in place. For now you'll need to clone the repo and install it locally. It's set up like a standard python package: activate a virtual environment, install dependencies, then `pip install .` from the root of the repo. Then, off you go!
+
+Soon:
 
 ```bash
 pipx install fiish # for global installation
 ```
 
+You'll need 4 environment variables (1 optional) set to use `fiish`, which is a lot for a CLI I know, but once this is working via API + Slackbot I think this will feel less onerous. I made the choice to use the best options for each stage, which means a lot of different APIs:
+
+```bash
+GITHUB_PERSONAL_ACCESS_TOKEN=your_github_PAT # for accessing the GitHub API
+OPENAI_API_KEY=your_openai_api_key # for the embeddings API
+ANTHROPIC_API_KEY=your_anthropic_api_key # for the summaries, Claude is really good at this
+GROQ_API_KEY=your_groq_api_key # optional, if you want to use the --fast flag
+```
+
 ## Usage
 
-`fiish` has two commands: `bait` and `go`. `bait` is used to scrape and vectorize the issues in a repository, while `go` is used to search the vector store for similar issues and return an LLM summary of the results with reference links.
+`fiish` has two commands: `bait` and `go`. `bait` is used to scrape and vectorize the issues in a repository (your proverbial bucket of bait), while `go` is used to search the vector store for similar issues and return an LLM summary of the results with reference links (the fish you catch).
 
 ### Head to the bait shop
 
-As far as I'm aware (and I could be wrong), when you run `bait` it will wipe out the previous vector store. So for now, it can only be pointed at one repo at a time. This _will_ change. The `bait` command takes two arguments: the organization/user and the repository name. Optionally, you can provide a list of user ids to limit the scrape to just those users. This is useful if you only want to scrape the comments of the core maintainers, for example.
+When you run `bait` it will wipe out the previous vector store. So for now, it can only be pointed at one repo at a time. This _will_ change. The `bait` command takes two arguments: the organization/user and the repository name. Optionally, you can provide a list of user ids to limit the scrape to just those users. This is useful if you only want to scrape the comments of the core maintainers, for example.
 
 ```bash
 fiish bait dbt-labs dbt-core # scrape and vectorize all issue comments in dbt-labs/dbt-core
@@ -87,9 +101,11 @@ The results for the above look like this:
 
 ## To Do
 
+Testing, error handling, and completing type annotations so that my linter will shut up are the top priorities for now, with work on the API and Slackbot interface next priority when I'm bored with that.
+
 - [x] Additional flags for `bait` and `go` to allow for more fine-tuned control (such as temperature or model choice for `go`, and limiting date range for `bait` to drop comments older than `n` years)
-- [ ] More robust error handling
-- [ ] A _lot_ more testing
+- [ ] More robust error handling (like actually adding some)
+- [ ] A _lot_ more testing (again, like, actually adding some)
 - [ ] Slackbot interface and build out API
 - [ ] Example of hosting the API for the Slackbot
 - [ ] GitHub Action to automatically update the vector store on a schedule or event

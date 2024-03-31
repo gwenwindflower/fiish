@@ -16,10 +16,10 @@ def get_issue_comments(repo_owner: str, repo_name: str, users: list[str] | None 
         "Accept": "application/vnd.github+json",
     }
     PARAMS = {
-        "per_page": 100,  # Number of comments to retrieve per page
-        "page": 1,  # Starting page number
+        "per_page": 100,
+        "page": 1,
         "sort": "updated",
-        "direction": "desc",
+        "direction": "desc",  # Newest first, although the model doesn't care
     }
 
     # Request
@@ -49,6 +49,10 @@ def get_issue_comments(repo_owner: str, repo_name: str, users: list[str] | None 
 
     this = Path(__file__).resolve()
     csv_filename = this.parent / csv_filename
+    # TODO: Build incremental loading,
+    # for now we explicitly remove the old file if it exists
+    # because I don't know what will happen otherwise yet
+    os.remove(csv_filename) if os.path.exists(csv_filename) else None
     with open(csv_filename, "w", newline="") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
