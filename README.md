@@ -1,8 +1,8 @@
-# 🔍fish✨
+# 🔍fiish✨
 
 ## A magical way to (fi)nd (ish)ues in open source GitHub repos
 
-`fish` is a CLI tool (I'm working on an API targeting Slackbots as an interface ultimately) built to help you find existing issues in open source GitHub repositories. It uses the GitHub API to scrape all the individual Issue Comments that comprise an Issue, then loads them into the Chroma vector store using OpenAI's embeddings API. Once the Issue Comments are vectorized, you can query the store for similar issues based on a query string. The results are summarized by either Anthropic Claude Opus (for maximum quality) or Groq running Gemma 7B (for maximum speed).
+`fiish` is a CLI tool (I'm working on an API targeting Slackbots as an interface ultimately) built to help you find existing issues in open source GitHub repositories. It uses the GitHub API to scrape all the individual Issue Comments that comprise an Issue, then loads them into the Chroma vector store using OpenAI's embeddings API. Once the Issue Comments are vectorized, you can query the store for similar issues based on a query string. The results are summarized by either Anthropic Claude Opus (for maximum quality) or Groq running Gemma 7B (for maximum speed).
 
 The results and the issues referenced (it will grab the 6 most relevant comments as its references) are then pretty printed to the console with [Rich](https://rich.readthedocs.io/en/stable/introduction.html).
 
@@ -11,20 +11,20 @@ The results and the issues referenced (it will grab the 6 most relevant comments
 Installation can be scoped to a virtual environment (if, for instance, you want to install `fish` alongside the project it's pointed at), or perhaps better globally as a general CLI tool. `pip` or `pipx` are the recommended installation methods.
 
 ```bash
-pipx install fish # for global installation
+pipx install fiish # for global installation
 ```
 
 ## Usage
 
-`fish` has two commands: `bait` and `go`. `bait` is used to scrape and vectorize the issues in a repository, while `go` is used to search the vector store for similar issues and return an LLM summary of the results with reference links.
+`fiish` has two commands: `bait` and `go`. `bait` is used to scrape and vectorize the issues in a repository, while `go` is used to search the vector store for similar issues and return an LLM summary of the results with reference links.
 
 ### Head to the bait shop
 
 As far as I'm aware (and I could be wrong), when you run `bait` it will wipe out the previous vector store. So for now, it can only be pointed at one repo at a time. This _will_ change. The `bait` command takes two arguments: the organization/user and the repository name. Optionally, you can provide a list of user ids to limit the scrape to just those users. This is useful if you only want to scrape the comments of the core maintainers, for example.
 
 ```bash
-fish bait dbt-labs dbt-core # scrape and vectorize all issue comments in dbt-labs/dbt-core
-fish bait dbt-labs dbt-core "<user id>,<user_id>,..." # this will limit the comments scraped to the list of user ids provided
+fiish bait dbt-labs dbt-core # scrape and vectorize all issue comments in dbt-labs/dbt-core
+fiish bait dbt-labs dbt-core "<user id>,<user_id>,..." # this will limit the comments scraped to the list of user ids provided
 ```
 
 This command can take several minutes depending on the activity history of the repo.
@@ -34,7 +34,7 @@ This command can take several minutes depending on the activity history of the r
 This is the fun part. Get a summary and references based on a query. The `go` command takes a single argument: the query string. It will return a summary of the most relevant issues based on the query string along with links and dates of the referenced comments. It has two options at present, `--fast` and `--temp`. `--fast` will use Groq running Gemma 7B for a faster response time and `--temp` will control the temperature of which every model you use, defaulting to good ole `0.5`.
 
 ```bash
-fish go "What existing discussion is there around improving 'dbt init' with richer templates?"
+fiish go "What existing discussion is there around improving 'dbt init' with richer templates?"
 ```
 
 The results for the above look like this:
