@@ -32,22 +32,24 @@ GROQ_API_KEY=your_groq_api_key # optional, if you want to use the --fast flag
 
 ## Usage
 
-`fiish` has two commands: `bait` and `go`. `bait` is used to scrape and vectorize the issues in a repository (your proverbial bucket of bait), while `go` is used to search the vector store for similar issues and return an LLM summary of the results with reference links (the fish you catch).
+`fiish` has three commands: `bait`, `clean` and `go`. `bait` is used to scrape and vectorize the issues in a repository (your proverbial bucket of bait), `clean` removes an existing vector store so you can start fresh, and `go` (where the action is) is used to search the vector store for similar issues and return an LLM summary of the results with reference links (the fish you catch).
 
 ### Head to the bait shop
 
-When you run `bait` it will wipe out the previous vector store. So for now, it can only be pointed at one repo at a time. This _will_ change. The `bait` command takes two arguments: the organization/user and the repository name. Optionally, you can provide a list of user ids to limit the scrape to just those users. This is useful if you only want to scrape the comments of the core maintainers, for example.
+When you run `bait` it stacks on top the existing vector store (for now, I plan to make this optional). So if there are several related repos you want to search you can point `bait` at each of them in turn and build a combined database. If you want to start fresh or switch to a different repo, run `clean` first.
+
+The `bait` command takes two arguments: the **repo owner** (organization or user) and the **repo name**. Optionally, you can provide a list of user ids to limit the scrape to just those users' comments within the repo's Issue history. This is useful if you only want to scrape the comments of the primary maintainers, for example.
 
 ```bash
-fiish bait DetachHead basedpyright # scrape and vectorize all issue comments in dbt-labs/dbt-core
+fiish bait DetachHead basedpyright # scrape and vectorize all issue comments in the basedpyright project
 fiish bait DetachHead basedpyright "DetachHead,<another_user_login>,..." # this will limit the comments scraped to the list of user ids provided
 ```
 
-This command can take several minutes depending on the activity history of the repo.
+This command can take anywhere from a few seconds to several minutes depending on the activity history and age of the repo.
 
 ### Go fishin'
 
-This is the fun part. Get a summary and references based on a query. The `go` command takes a single argument: the query string. It will return a summary of the most relevant issues based on the query string along with links and dates of the referenced comments. It has two options at present, `--fast` and `--temp`. `--fast` will use Groq running Gemma 7B for a faster response time and `--temp` will control the temperature of which every model you use, defaulting to good ole `0.5`.
+This is the fun part. Get a summary and references based on a query. The `go` command takes a single argument: the query string. It will return a summary of the most relevant issues based on the query string along with links and dates of the referenced comments. It has two options at present, `--fast` and `--temp`. `--fast` will use Groq running Gemma 7B (instead of the default Claude 3 Opus) for a faster response time and `--temp` will control the temperature of which every model you use, defaulting to good ole `0.5`.
 
 ```bash
 fiish go "How should users deal with implicit imports errors?"
@@ -104,11 +106,11 @@ The results for the above look like this:
 
 ## To Do
 
-Testing, error handling, and completing type annotations so that my linter will shut up are the top priorities for now, with work on the API and Slackbot interface next priority when I'm bored with that.
+Testing, error handling, and completing type annotations so that my linter will shut up are the top priorities for now, with work on the API and Slackbot interface next priority when I'm taking breaks from that.
 
 - [x] Additional flags for `bait` and `go` to allow for more fine-tuned control (such as temperature or model choice for `go`, and limiting date range for `bait` to drop comments older than `n` years)
 - [ ] More robust error handling (like actually adding some)
-- [ ] A _lot_ more testing (again, like, actually adding some)
+- [ ] A _lot_ more testing (again, like, actually adding more than 3)
 - [ ] Slackbot interface and build out API
 - [ ] Example of hosting the API for the Slackbot
 - [ ] GitHub Action to automatically update the vector store on a schedule or event
