@@ -9,12 +9,12 @@ def parse_requirements(filename):
 
 requirements = parse_requirements("requirements.in")
 setup(
-    name="fish",
+    name="fiish",
     version="0.1",
     packages=find_packages(
         exclude=["*.tests", "*.tests.*", "tests.*", "tests"],
     ),
-    package_dir={"fish": "fish"},
-    entry_points={"console_scripts": ["fish = fish.cli:cli"]},
+    package_dir={"fiish": "fiish"},
+    entry_points={"console_scripts": ["fiish = fiish.cli:cli"]},
     install_requires=requirements,
 )
