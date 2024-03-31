@@ -15,6 +15,6 @@ setup(
         exclude=["*.tests", "*.tests.*", "tests.*", "tests"],
     ),
     package_dir={"fish": "fish"},
-    entry_points={"console_scripts": ["fish = fish.main:main"]},
+    entry_points={"console_scripts": ["fish = fish.cli:cli"]},
     install_requires=requirements,
 )

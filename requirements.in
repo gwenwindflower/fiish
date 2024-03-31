@@ -1,5 +1,6 @@
 langchain-core
 langchain-anthropic
+langchain-groq
 langchain-community
 langchain-openai
 langchain-text-splitters
@@ -10,4 +11,5 @@ setuptools
 pytest
 ruff
 fastapi[all]
+typer[all]
 halo
