@@ -7,7 +7,9 @@
 
 `fiish` is a CLI tool (I'm working on an API targeting Slackbots as an interface ultimately) built to help you find existing issues in open source GitHub repositories. It uses the GitHub API to scrape all the individual Issue Comments that comprise an Issue, then loads them into the Chroma vector store using OpenAI's embeddings API. Once the Issue Comments are vectorized, you can query the store for similar issues based on a query string. The results are summarized by either Anthropic Claude Opus (for maximum quality) or Groq running Gemma 7B (for maximum speed).
 
-The results and the issues referenced (it will grab the 6 most relevant comments as its references) are then pretty printed to the console with [Rich](https://rich.readthedocs.io/en/stable/introduction.html).
+The results and the issues referenced (it will grab the 6 most relevant comments as its references) are then pretty printed to the console.
+
+It's built with several wonderful open source tools: [Rich](https://rich.readthedocs.io/en/stable/introduction.html), [LangChain](https://github.com/langchain-ai/langchain), [Halo](https://github.com/manrajgrover/halo?tab=readme-ov-file), [Ruff](https://docs.astral.sh/ruff/), and [Chroma](https://github.com/chroma-core/chroma) to name a few.
 
 ## Installation
 
