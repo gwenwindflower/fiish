@@ -1,13 +1,14 @@
+import shutil
 from pathlib import Path
 from typing import Optional
-from typing_extensions import Annotated
 
+import typer
 from halo import Halo
 from langchain_community.document_loaders import CSVLoader
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
 from rich.console import Console
-import typer
+from typing_extensions import Annotated
 
 from .answer_query import answer_query
 from .format_response import format_response
@@ -41,10 +42,18 @@ def bait(
     )
     docs = loader.load()
 
-    db: Chroma = Chroma.from_documents(
-        docs, embedding_function, persist_directory="./chroma_db"
-    )
+    Chroma.from_documents(docs, embedding_function, persist_directory="./chroma_db")
     spinner.stop_and_persist(symbol="🪣", text="Ready to fish!")
+
+
+@cli.command()
+def clean():
+    vector_store_path = Path(__file__).resolve().parent.parent / "chroma_db"
+    if vector_store_path.exists() and vector_store_path.is_dir():
+        shutil.rmtree(vector_store_path)
+        print("🧼✨Vector store has been removed. Run `fiish bait` to start fresh!")
+    else:
+        print("❌🙈 No vector store to remove.")
 
 
 @cli.command()
