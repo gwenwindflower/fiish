@@ -27,7 +27,6 @@ def bait(
     """
     Head to the bait shop: collect issue comments from a GitHub repository for the vector store.
     """
-    this = Path(__file__).resolve()
     embedding_function = OpenAIEmbeddings()
     users: list[str] | None = users.split(",") if users else None
     spinner = Halo(text="🚌 Off to the bait shop (takes awhile)...", spinner="moon")
