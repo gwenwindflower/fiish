@@ -112,3 +112,5 @@ Testing, error handling, and completing type annotations so that my linter will 
 - [ ] GitHub Action to automatically update the vector store on a schedule or event
 - [ ] Support building the vector store incrementally against multiple repositories
 - [ ] Tiered RAG flow that pulls the entire issue for all of the individual comments it selects, I think this will give better results for the response summary, and both Gemma and Claude have really big context windows
+
+![A robot fishing at sunset](https://github.com/gwenwindflower/fiish/assets/91998347/3d2c39a0-3159-4d21-a75f-a7a1972bed3b)
