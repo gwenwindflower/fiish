@@ -12,6 +12,7 @@ import typer
 from .answer_query import answer_query
 from .format_response import format_response
 from .get_issue_comments import get_issue_comments
+from .write_csv import write_csv
 
 cli = typer.Typer()
 
@@ -31,9 +32,8 @@ def bait(
     spinner = Halo(text="🚌 Off to the bait shop (takes awhile)...", spinner="moon")
 
     spinner.start()
-    get_issue_comments(repo_owner, repo_name, users)
-
-    issue_comments_data_path = this.parent / "issue_comments.csv"
+    comments = get_issue_comments(repo_owner, repo_name, users)
+    issue_comments_data_path: Path = write_csv(comments)
     loader: CSVLoader = CSVLoader(
         file_path=issue_comments_data_path,
         metadata_columns=["user", "updated_at", "issue_url"],

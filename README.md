@@ -110,3 +110,4 @@ Testing, error handling, and completing type annotations so that my linter will 
 - [ ] Example of hosting the API for the Slackbot
 - [ ] GitHub Action to automatically update the vector store on a schedule or event
 - [ ] Support building the vector store incrementally against multiple repositories
+- [ ] Tiered RAG flow that pulls the entire issue for all of the individual comments it selects, I think this will give better results for the response summary, and both Gemma and Claude have really big context windows
