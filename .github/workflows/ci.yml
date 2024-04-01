@@ -9,15 +9,14 @@ on:
   pull_request:
     branches: [ "main" ]
 
+
 jobs:
   build:
-
     runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12"]
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
@@ -31,4 +30,9 @@ jobs:
     - name: Lint with ruff
       run: ruff check
     - name: Test with pytest
+      env:
+        OPEN_AI_API_KEY: ${{ secrets.OPEN_AI_API_KEY }}
+        GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        ANTHROPIC_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PAT }}
       run: pytest
