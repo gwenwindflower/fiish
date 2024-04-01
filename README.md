@@ -101,7 +101,7 @@ The results for the above look like this:
 │ - https://github.com/DetachHead/basedpyright/issues/178 from DetachHead on   │
 │ 2024-03-29                                                                   │
 │                                                                              │
-╰──────────────────────────────────────────────────────────────────────────────╯``
+╰──────────────────────────────────────────────────────────────────────────────╯
 ```
 
 ## To Do
