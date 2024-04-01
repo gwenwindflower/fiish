@@ -4,6 +4,9 @@ from pathlib import Path
 
 
 def write_csv(comments) -> Path:
+    """
+    Write the issue comments to a CSV file for use seeding the vector store.
+    """
     csv_filename = "issue_comments.csv"
     fieldnames = ["id", "issue_url", "user", "created_at", "updated_at", "body"]
 

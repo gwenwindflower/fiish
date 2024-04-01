@@ -28,6 +28,10 @@ HUMAN: str = """
 
 
 def get_retriever():
+    """
+    Return the vector store as a Langchain retriever.
+    This sets up the vector store for finding similar issue comments.
+    """
     embedding_function = OpenAIEmbeddings()
     db: Chroma = Chroma(
         persist_directory="./chroma_db", embedding_function=embedding_function

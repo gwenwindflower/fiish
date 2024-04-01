@@ -3,6 +3,9 @@ import requests
 
 
 def get_issue_comments(repo_owner: str, repo_name: str, users: list[str] | None = None):
+    """
+    Scrape all the individual comments from a GitHub repository's issues.
+    """
     # Constants
     REPO_OWNER = repo_owner
     REPO_NAME = repo_name

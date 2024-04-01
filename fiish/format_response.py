@@ -4,6 +4,9 @@ from datetime import datetime
 
 
 def format_response(answer) -> tuple[Panel, Panel]:
+    """
+    Format the response from the model and the references to the issues used to generate the response.
+    """
     model_output: str = answer["model_output"]
     referenced_issues = answer["references"]
 
